@@ -58,8 +58,9 @@ def task3():
             if frames % 2 == 0:
                 WIN.fill((0,0,0))
             togethercoords, locations = planet.create_orbit()
-            #print (planet.name, locations[frames], "\n")
-            planet.DRAW(WIN,locations[frames])
+            print(planet.name, locations[frames], "\n")
+
+            planet.DRAW(WIN, locations[frames])
             pygame.draw.lines(WIN, planet.color, False, togethercoords, 2)
 
         pygame.display.update()
@@ -117,8 +118,9 @@ def task6():
 def main():
     planets: List[Planet] = get_planets()
     task2(planets)
+    task3()
     #task4(planets)
-    #task3()
+    
     #task5()
     # task6()
 
