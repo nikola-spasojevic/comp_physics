@@ -1,5 +1,6 @@
 from typing import List
-from random import randint as rand
+
+import pygame
 import matplotlib.pyplot as plt
 
 
@@ -26,8 +27,6 @@ def task4(planets: List[Planet]):
 
 
 def task3():
-
-    import pygame
     pygame.init()
     WIN = pygame.display.set_mode((WIDTH,HEIGHT))
     run = True
@@ -45,25 +44,25 @@ def task3():
 
     while run:
         clock.tick(60)
-        pygame.display.update()
+        WIN.fill((0,0,0))
+        # pygame.display.update()
         frames += 1 #increases by one every frame, counting them
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-        
-        #planets = planets[3:] # get just mercury
 
         for planet in planets:
-            if frames % 2 == 0:
-                WIN.fill((0,0,0))
+            #if frames % 2 == 0:
+                
+            # WIN.fill((0,0,0))
             togethercoords, locations = planet.create_orbit()
-            print(planet.name, locations[frames], "\n")
 
             planet.DRAW(WIN, locations[frames])
             pygame.draw.lines(WIN, planet.color, False, togethercoords, 2)
 
         pygame.display.update()
+        # WIN.fill((0,0,0))
 
     pygame.quit()
 
