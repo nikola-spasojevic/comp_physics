@@ -8,8 +8,18 @@ from src.planet import get_planets, Planet, WIDTH, HEIGHT
 
 
 def task1(planets: List[Planet]):
+    semi_major_axis_three_over_two = []
+    orbital_periods = []
     for planet in planets:
-        pass
+        semi_major_axis_three_over_two.append(planet.semi_major_axis ** (3/2))
+        orbital_periods.append(planet.orbital_period)
+    
+    plt.title("Kepler's Third Law")
+    plt.xlabel('(a / AU) * (3/2)')
+    plt.ylabel('T /Yr')
+    plt.plot(semi_major_axis_three_over_two,orbital_periods)
+    plt.scatter(semi_major_axis_three_over_two,orbital_periods, 10, 'Red')
+    plt.show()
 
 
 def task2(planets: List[Planet]):
@@ -116,8 +126,9 @@ def task6():
 
 def main():
     planets: List[Planet] = get_planets()
-    task2(planets)
-    task3()
+    task1(planets)
+    #task2(planets)
+    #task3()
     #task4(planets)
     
     #task5()
