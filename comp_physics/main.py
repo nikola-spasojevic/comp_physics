@@ -52,7 +52,10 @@ def task3():
     else:
         planets = planets[4:]
 
-    while run:
+
+    outer_line_coordinates, outer_locations = planets[-1].create_orbit()
+
+    while run and frames < planets[-1].ten_rotations_frames_time():
         clock.tick(60)
         WIN.fill((0,0,0))
         # pygame.display.update()
@@ -63,12 +66,12 @@ def task3():
                 run = False
 
         for planet in planets:
-            #if frames % 2 == 0:
-                
-            # WIN.fill((0,0,0))
             togethercoords, locations = planet.create_orbit()
-
+            #locations = planet.increase_locations(planets[-1])
             planet.DRAW(WIN, locations[frames])
+            if frames > len(outer_locations) / 60 and run:
+                print ("Program closed as a rotation of the outer planet happened")
+                run = False
             pygame.draw.lines(WIN, planet.color, False, togethercoords, 2)
 
         pygame.display.update()
@@ -98,7 +101,7 @@ def task6():
     planets = [planets[1],planets[2]]
     frames = 0
 
-    while run and frames < planets[1].ten_rotations_frames():
+    while run and frames < planets[1].ten_rotations_frames_time():
         #print (planets[1].ten_rotations_frames())
         clock.tick(60)
         pygame.display.update()
@@ -126,9 +129,9 @@ def task6():
 
 def main():
     planets: List[Planet] = get_planets()
-    task1(planets)
+    #task1(planets)
     #task2(planets)
-    #task3()
+    task3()
     #task4(planets)
     
     #task5()

@@ -65,9 +65,21 @@ class Planet:
     def get_number_of_frames(self, t):
         return ((360 * self.orbital_period) / (2 * math.pi) / t) * 60
     
-    def ten_rotations_frames(self):
+    def ten_rotations_frames_time(self):
         t = data['earth_orbit_time'] if self.first_four_planets else data['jupiter_orbit_time']
         return  self.get_number_of_frames(t) * 10
+    
+    def increase_locations(self, outer_planet):
+        pass
+        line_coordinates, locations = self.create_orbit()
+        outer_line_coordinates, outer_locations = outer_planet.create_orbit()
+        new_locations = locations * ((len(outer_locations) // len(locations))) #extending the length of locations using integer division
+        remainder = len(outer_locations) - len(new_locations) + 60
+        for i in range (len(locations[:remainder])):
+            new_locations.append(locations[:remainder][1])
+        return new_locations
+
+        
 
     def create_orbit(self, N=1000):
         xcoords = []
