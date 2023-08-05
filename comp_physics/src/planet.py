@@ -13,7 +13,6 @@ class Planet:
     
     AU = 149.6e6 * 1000
     SCALE = 10 / AU
-    TIMESTEP = 3600 * 24
 
     def __init__(
         self,
@@ -68,18 +67,6 @@ class Planet:
     def ten_rotations_frames_time(self):
         t = data['earth_orbit_time'] if self.first_four_planets else data['jupiter_orbit_time']
         return  self.get_number_of_frames(t) * 10
-    
-    def increase_locations(self, outer_planet):
-        pass
-        line_coordinates, locations = self.create_orbit()
-        outer_line_coordinates, outer_locations = outer_planet.create_orbit()
-        new_locations = locations * ((len(outer_locations) // len(locations))) #extending the length of locations using integer division
-        remainder = len(outer_locations) - len(new_locations) + 60
-        for i in range (len(locations[:remainder])):
-            new_locations.append(locations[:remainder][1])
-        return new_locations
-
-        
 
     def create_orbit(self, N=1000):
         xcoords = []
@@ -133,43 +120,29 @@ class Planet:
         return change_in_time * 60
 
 
-    def time_at_certain_angles(self):
-        def simpsons_integration(tuple):
-            d_theta = 1/1000
-            lower, upper = tuple
+def time_at_certain_angles(tuple, strip_number, function, thing_to_replace):
+    a, b = tuple
 
-            lower = lower * convert_1000_to_360
-            upper = upper * convert_1000_to_360
-            #bigger = d_theta / ((1 - self.eccentricity * math.cos(math.radians(upper * convert_1000_to_360))) ** 2)
-            #smaller = d_theta / ((1 - self.eccentricity * math.cos(math.radians(0))) ** 2)
-            
-            N = (upper - lower) / d_theta
-            N = int(N)
-            answer = 0
-            for i in range (0, N + 1):
-                y_of_n = d_theta / (1 - self.eccentricity * math.cos(math.radians(lower + i * d_theta))) ** 2
-                add = y_of_n
-                if i == 0 or i == N:
-                    answer += add
-                elif i % 2 == 0:
-                    answer += add * 2
-                else:
-                    answer += add * 4
-            answer = d_theta / 3 * answer 
-            return answer
-        
-        convert_1000_to_360 = (9/25)
-        '''
-        first_interval = (0, rand(0,1000))
-        second_interval = (first_interval[1], rand(first_interval[1],1000))
-        third_interval = (second_interval[1], 1000)
-        
-        time_first_int = (self.orbital_period * (1 - self.eccentricity ** 2) ** (3/2)) * (1 / (2 * math.pi)) * simpsons_integration(first_interval)
-        '''
-        answer = simpsons_integration((0,1000)) * self.orbital_period * (1 - self.eccentricity ** 2) ** (3/2) * (1 / (2 * math.pi))
+    def plug_in(replacement, function):
+        for character in function:
+            if character == thing_to_replace:
+                function = function.replace(thing_to_replace, str(replacement))
+        return float(eval(function))
 
-        print(answer)
 
+    def simpsons_integration():
+        strip_width = (b - a) / strip_number 
+        answer = 0
+        for n in range (0, strip_number+1):
+            if n == 0 or n == strip_number:
+                answer += plug_in(a + n * strip_width, function)
+            elif n % 2 == 1:
+                answer += 4 * plug_in(a + n * strip_width, function)
+            else:
+                answer += 2 * plug_in(a + n * strip_width, function)
+        return answer * (1/3) * strip_width
+    
+    print (simpsons_integration()) 
 
 
 def find_semi_minor_axis(idx: int) -> float:

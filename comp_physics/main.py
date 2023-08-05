@@ -4,7 +4,7 @@ import pygame
 import matplotlib.pyplot as plt
 
 
-from src.planet import get_planets, Planet, WIDTH, HEIGHT
+from src.planet import get_planets, Planet, WIDTH, HEIGHT, time_at_certain_angles
 
 
 def task1(planets: List[Planet]):
@@ -131,15 +131,15 @@ def main():
     planets: List[Planet] = get_planets()
     #task1(planets)
     #task2(planets)
-    task3()
+    #task3()
     #task4(planets)
-    
     #task5()
-    # task6()
+    #task6()
 
 
 if __name__ == '__main__':
     main()
+    time_at_certain_angles((0,10),10,"x**3 - 3*x**2 + 20", 'x')
     #Planet.match_up_locations(planets[0],planets[1])
 
     
