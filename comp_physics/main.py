@@ -3,11 +3,12 @@ from typing import List
 import pygame
 import matplotlib.pyplot as plt
 
-
 from src.planet import get_planets, Planet, WIDTH, HEIGHT, time_at_certain_angles
 
 
-def task1(planets: List[Planet]):
+def task1():
+    planets: List[Planet] = get_planets()
+
     semi_major_axis_three_over_two = []
     orbital_periods = []
     for planet in planets:
@@ -22,27 +23,22 @@ def task1(planets: List[Planet]):
     plt.show()
 
 
-def task2(planets: List[Planet]):
+def task2():
+    planets: List[Planet] = get_planets()
+
     for planet in planets:
         planet.create_orbit()
     plt.show()
 
 
-def task4(planets: List[Planet]):
-    plt.axes(projection='3d')
-    #planets = planets [:4]
-    for planet in planets:
-        planet.create_orbit_z()
-    plt.show()
-
-
 def task3():
+    planets: List[Planet] = get_planets()
+
     pygame.init()
     WIN = pygame.display.set_mode((WIDTH,HEIGHT))
     run = True
     clock = pygame.time.Clock()
 
-    planets: List[Planet] = get_planets()
     frames = 0
 
     if input("first four?")[0] == 'y':
@@ -51,7 +47,6 @@ def task3():
             planet.SCALE = 150/Planet.AU
     else:
         planets = planets[4:]
-
 
     outer_line_coordinates, outer_locations = planets[-1].create_orbit()
 
@@ -80,25 +75,34 @@ def task3():
     pygame.quit()
 
 
+def task4():
+    planets: List[Planet] = get_planets()
+
+    plt.close()
+    plt.axes(projection='3d')
+
+    for planet in planets:
+        planet.create_orbit_z()
+    plt.show()
+
 
 def task5():
     planets: List[Planet] = get_planets()
-    planets = planets[:1]
+
     for planet in planets:
         Planet.time_at_certain_angles(planet)
 
 
 def task6():
-    import pygame
+    planets: List[Planet] = get_planets()
+    # planets = [planets[1],planets[2]]
+
     pygame.init()
     WIN = pygame.display.set_mode((WIDTH,HEIGHT))
     WIN.fill((255,255,255))
     run = True
     clock = pygame.time.Clock()
 
-    planets: List[Planet] = get_planets()
-
-    planets = [planets[1],planets[2]]
     frames = 0
 
     while run and frames < planets[1].ten_rotations_frames_time():
@@ -128,12 +132,11 @@ def task6():
 
 
 def main():
-    planets: List[Planet] = get_planets()
-    #task1(planets)
-    #task2(planets)
-    #task3()
-    #task4(planets)
-    #task5()
+    # task1()
+    # task2()
+    # task3()
+    task4()
+    task5()
     #task6()
 
 

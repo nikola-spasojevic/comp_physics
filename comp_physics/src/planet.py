@@ -142,7 +142,7 @@ def time_at_certain_angles(tuple, strip_number, function, thing_to_replace):
                 answer += 2 * plug_in(a + n * strip_width, function)
         return answer * (1/3) * strip_width
     
-    print (simpsons_integration()) 
+    print(simpsons_integration()) 
 
 
 def find_semi_minor_axis(idx: int) -> float:
