@@ -7,6 +7,12 @@ from src.planet import get_planets, Planet, WIDTH, HEIGHT, time_at_certain_angle
 
 
 def task1():
+    """
+    Using Solar System parameters, verify
+    that the square of orbital period is proportional to the
+    cube of the orbital semi-major axis. If units of years
+    for time and Astronomical Units (AU) for distance are used, show that the constant of proportionality is very close to unity for the Solar System.
+    """
     planets: List[Planet] = get_planets()
 
     semi_major_axis_three_over_two = []
@@ -24,6 +30,10 @@ def task1():
 
 
 def task2():
+    """
+    Compute and accurately plot elliptical orbits of the five inner planets.
+    Then (using a larger scale), plot the outer planet orbits.
+    """
     planets: List[Planet] = get_planets()
 
     for planet in planets:
@@ -32,6 +42,9 @@ def task2():
 
 
 def task3():
+    """
+    Create a 2D animation of the orbits of the planets.
+    """
     planets: List[Planet] = get_planets()
 
     pygame.init()
@@ -76,6 +89,10 @@ def task3():
 
 
 def task4():
+    """
+    Use the inclination angle value  and hence plot 3D orbit animations of the planets.
+    Do include the dwarf planet Pluto, as it is off the plane of the ecliptic much more than the other planets.
+    """
     planets: List[Planet] = get_planets()
 
     plt.close()
@@ -87,6 +104,12 @@ def task4():
 
 
 def task5():
+    """
+    Use Simpson’s numeric integration method to determine how orbital time varies with polar angle.
+    Hence code-up a function which outputs orbit polar angle from orbit time.
+    Update your models with this function, and contrast how polar angle varies with time for Pluto,
+    compared to a circular motion example with the same 248.348 year period.
+    """
     planets: List[Planet] = get_planets()
 
     for planet in planets:
